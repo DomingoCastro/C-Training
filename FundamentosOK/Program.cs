@@ -1,9 +1,22 @@
-﻿namespace FundamentosOK
+﻿
+using FundamentosOK.Models;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
+
+namespace FundamentosOK
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            Persona persona = new Persona();
+            persona.Nombre = "Maria";
+            persona.Apellido = "Castro";
+            persona.Edad = 28;
+            persona.Nacionalidad = Paises.España;
+            Console.WriteLine("Nombre de la persona " + persona.Nombre);
+            Console.WriteLine("Edad: " + persona.Edad);
+            Console.WriteLine("Pais: " + persona.Nacionalidad);
             // METODO PRINCIPAL DE EJECUCION
             // Realizamos la llamada a los metodos que deseemos
             //PositivoNegativo();
@@ -11,9 +24,185 @@
             //EjemploBucles();
             //ConjeturaCollatz();
             //MostrarPares();
-            SumaBucle();
+            //SumaBucle();
+            //EjemploClases();
+            //ValidacionEmail();
+            //SumaTexto();
+            //ValidarIsbn();
+            // EjemploColecciones();
+            SumarColecciones();
         }
 
+
+        static void SumarColecciones()
+        {
+            List<int> numeros = new List<int>();
+            int opcion = 1;
+            int suma = 0;
+            float mediana = 0;
+            while (opcion == 1)
+            {
+                Console.WriteLine("Introduce un numero");
+                int number = int.Parse(Console.ReadLine());
+                if (number != 0)
+                {
+                    numeros.Add(number);
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Elementos de la coleccion " + numeros.Count);
+                    foreach(int num in numeros)
+                    {
+                        suma += num;
+
+                        mediana = suma / numeros.Count;
+                        
+                    }
+                    opcion = 0;
+                    Console.WriteLine("La suma de los numeros es: " + suma);
+                    Console.WriteLine("La media es: " + mediana);
+
+                }
+                
+            }
+        }     
+        
+        
+        
+        
+        static void EjemploColecciones()
+        {
+            List<int> numeros = new List<int>();
+            numeros.Add(1);
+            numeros.Add(2);
+            numeros.Add(3);
+            Console.WriteLine("Elementos de la coleccion " + numeros.Count);
+            foreach(int num in numeros)
+            {
+                Console.WriteLine(num);
+            }
+            //ARRAY
+            List<string> nombres = new List<string>();
+            nombres.Add("Ana");
+            nombres.Add("Paco");
+            nombres.Add("Ana");
+            nombres.Add("Domi");
+            // QUE SUCEDE SI ELIMINAMOS UN ELEMENTO COMO OBJETO
+            // ELIMINA LA PRIMERA COINCIDENCIA
+            //nombres.Remove("Ana");
+            nombres.RemoveAt(3);
+            foreach (string name in nombres)
+            {
+                Console.WriteLine(name);
+            }
+        }
+
+        static void ValidarIsbn()
+        {
+            Console.WriteLine("Validar ISBN");
+            Console.WriteLine("Introduce un ISBN correcto");
+            string isbn = Console.ReadLine();
+            if (isbn.Length != 10)
+            {
+                Console.WriteLine("El numero ISBN debe tener 10 caracteres");
+            }
+            else
+            {
+                int suma = 0;
+                for (int i = 0; i < isbn.Length; i++)
+                {
+                    char caracter = isbn[i];
+                    int numero = int.Parse(caracter.ToString());
+                    int operacion = numero * (i + 1);
+                    suma += operacion;
+                }
+                if (suma % 11 == 0)
+                {
+                    Console.WriteLine("Numero ISBN CORRECTO");
+                }
+                else
+                {
+                    Console.WriteLine("NUMERO ISBN INCORRECTO");
+                }
+            }
+            
+        
+        
+        }
+
+        static void SumaTexto()
+        {
+            Console.WriteLine("Escribe un numero");
+            string texto = Console.ReadLine();
+            int suma = 0;
+            for (int i = 0; i < texto.Length; i++)
+            {
+                Char caracter = texto[i];
+                int numero = int.Parse(caracter.ToString());
+                suma += numero;
+                Console.WriteLine("La suma de " + texto + " es: " + suma);
+            }
+        }
+
+
+
+        static void ValidacionEmail()
+        {
+            Console.WriteLine("Introduzca su email");
+            string email = Console.ReadLine();
+            if (email.Contains("@") == false)
+            {
+                Console.WriteLine("No existe @");
+            }
+            else if (email.IndexOf(".") == -1)
+            {
+                Console.WriteLine("No existe un .");
+            }
+            else if (email.StartsWith("@") || email.EndsWith("@") || email.StartsWith(".") || email.EndsWith(".")) 
+            {
+                Console.WriteLine("El email empieza o acaba con @ o .");
+            }
+            else if (email.LastIndexOf(".") < email.IndexOf("@"))
+            {
+                Console.WriteLine("Debe existir un . despues de la @");
+            }
+            // paco@gmail.com
+            else if (email.IndexOf("@") != email.LastIndexOf("@"))
+            {
+                Console.WriteLine("Existen 2 @");
+            }
+            else
+            {
+                int ultimoPunto = email.LastIndexOf('.');
+                string dominio = email.Substring(ultimoPunto+ 1);
+                if (dominio.Length >= 2 && dominio.Length<= 4)
+                {
+                    Console.WriteLine("Email correcto");
+                }
+                else {
+                    Console.WriteLine("El dominio debe ser de 2 a 4 caracteres");
+                }
+            }
+        }
+
+
+
+        static void EjemploClases()
+        {
+            DateTime fecha = DateTime.Now;
+            Console.WriteLine(fecha.ToLongDateString());
+            Console.WriteLine(fecha.ToShortDateString());
+            for (int i = 0; i <= 255; i++)
+            {
+                char letra = (char)i;
+                if (char.IsNumber(letra))
+                {
+                    Console.WriteLine(letra);
+                }
+            }
+        }
+       
         static void SumaBucle()
         {
             Console.WriteLine("Escribe un numero para sumar");
