@@ -25,7 +25,7 @@ namespace FundamentosOK.Models
         {
             get
             {
-                return _Edad;
+                return this._Edad;
             }
             set
             {
@@ -35,9 +35,52 @@ namespace FundamentosOK.Models
                 }
                 else
                 {
-                    _Edad = value;
+                    this._Edad = value;
                 }
             }
         }
+
+        private string[] _Descripciones = new string[3];
+        public string this[int indice]
+        {
+            get
+            {
+                return this._Descripciones[indice];
+            }
+            set
+            {
+                this._Descripciones[indice] = value;
+            }
+
+        }
+        public virtual string GetNombreCompleto() { 
+            return this.Nombre + " " + this.Apellido;
+        }
+        //Polimorfismo
+        public string GetNombreCompleto(bool orden)
+        {
+            if (orden == true)
+            {
+                return this.Apellido+ " " + this.Nombre;
+            }
+            else
+            {
+                return this.Nombre+ " " + this.Apellido;
+            }
+        }
+        public override string ToString()
+        {
+            return this.Nombre + " " + this.Apellido + " " + this.Edad;
+        }
+        public Persona()
+        {
+            this.Nacionalidad = Paises.España;
+        }
+        public Persona(string nombre, string apellidos)
+        {
+            this.Nombre = nombre;
+            this.Apellido = apellidos;
+        }
+
     }
 }

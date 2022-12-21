@@ -1,4 +1,5 @@
 ﻿
+using FundamentosOK.Helpers;
 using FundamentosOK.Models;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -9,14 +10,29 @@ namespace FundamentosOK
     {
         static void Main(string[] args)
         {
-            Persona persona = new Persona();
-            persona.Nombre = "Maria";
-            persona.Apellido = "Castro";
-            persona.Edad = 28;
-            persona.Nacionalidad = Paises.España;
-            Console.WriteLine("Nombre de la persona " + persona.Nombre);
-            Console.WriteLine("Edad: " + persona.Edad);
-            Console.WriteLine("Pais: " + persona.Nacionalidad);
+            //Empleado empleado= new Empleado();
+            //empleado.MostrarSalarioMinimo();
+            //// Creamos tambien un director
+            //Director director= new Director();
+            //director.MostrarSalarioMinimo();
+            //Persona persona = new Persona();
+            //Persona persona2 = new Persona("Lucas", "Martinez");
+            //persona.Nombre = "Maria";
+            //persona.Apellido = "Castro";
+            //Console.WriteLine(persona.ToString());
+
+
+
+
+            //persona.Edad = 28;
+            //persona.Nacionalidad = Paises.España;
+            //Console.WriteLine("Nombre de la persona " + persona.Nombre);
+            //Console.WriteLine("Edad: " + persona.Edad);
+            //Console.WriteLine("Pais: " + persona.Nacionalidad);
+            //persona[0] = "Ojos negros";
+            //persona[1] = "Alta";
+            //Console.WriteLine(persona2.GetNombreCompleto(orden:true));
+
             // METODO PRINCIPAL DE EJECUCION
             // Realizamos la llamada a los metodos que deseemos
             //PositivoNegativo();
@@ -30,7 +46,103 @@ namespace FundamentosOK
             //SumaTexto();
             //ValidarIsbn();
             // EjemploColecciones();
-            SumarColecciones();
+            //SumarColecciones();
+            //AdministrarTemperaturas();
+            //AdministrarTemperaturasHelper();
+            ManejarCoche();
+        }
+
+
+        static void ManejarCoche()
+        {
+
+            Coche coche = new Coche();
+            coche.Marca = "Opel";
+            coche.Modelo = "Corsa";
+            Console.WriteLine("Marca: " + coche.Marca+ " " +"Modelo: " + " "+ coche.Modelo);
+            int opcion = -1;
+            while (opcion != 0)
+            {
+                Console.WriteLine("Elije una opcion");
+                Console.WriteLine("1.-Arrancar");
+                Console.WriteLine("2.-Acelerar");
+                Console.WriteLine("3.-Girar");
+                Console.WriteLine("4.-Frenar");
+                Console.WriteLine("5.-Apagar");
+                Console.WriteLine("6.-Accelerar lo que quieras");
+                Console.WriteLine("0.-Salir");
+                opcion = int.Parse(Console.ReadLine());
+                if (opcion == 1)
+                {
+                    coche.Arrancar();
+
+                }
+                else if (opcion == 2)
+                {
+                    coche.GetVelocidadMaxima();
+                    coche.Acelerar();
+                }
+                else if (opcion == 3)
+                {
+                    coche.Girar();
+                }
+                else if (opcion == 4)
+                {
+                    coche.Frenar();
+                }
+                else if (opcion == 5)
+                {
+                    coche.Detener();
+                }
+                else if (opcion == 6)
+                {
+                    coche.AcelerarCantidad();
+                }
+                else if (opcion == 0)
+                {
+                    Console.WriteLine("Saliendo...");
+                    opcion = 0;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR NUMERO INCORRECTO");
+                }
+            }
+        }
+
+
+        static void AdministrarTemperaturasHelper()
+        {
+            HelperMeses helper = new HelperMeses();
+            foreach (TemperaturaMes mes in helper.Meses)
+            {
+                Console.WriteLine("Nombre del mes: " + mes.NombreMes + " "+ "Máxima del mes: " + mes.Maxima+ " "+ "Minima del mes: " + mes.Minima + " "+ "Media del mes: "+ mes.GetMediaMes());
+            }
+            Console.WriteLine("Minima anual: " + helper.GetMediaAnual());
+            Console.WriteLine("Maxima anual: " + helper.GetMaximaAnual());
+            Console.WriteLine("Media anual: " + helper.GetMediaAnual());
+        }
+
+        static void AdministrarTemperaturas()
+        {
+            //QUEREMOS GENERAR 12 TEMPERATURAS ASIGNAREMOS VALORES ALEATORIOS PARA MAXIMO Y MINIMO
+            // PARA GENERAR VALORES ALEATORIOS DENTRO DE NET SE UTILIZA LA CLASE RANDOM
+            // DICHA CLASE TIENE UN METODO Next() QUE NOS DEVUELVE UN NUMERO ALEATORIO ENTRE UN MINIMO Y UN MAXIMO
+            Random random= new Random();
+            List<TemperaturaMes> meses = new List<TemperaturaMes>();
+            // REALIZAMOS UN BUCLE DE 1 A 12 PARA IR CREANDO MES A MES Y AÑADIENDOLO A LA COLECCION
+            for (int i = 1; i<= 12; i++)
+            {
+                TemperaturaMes mes = new TemperaturaMes();
+                mes.NombreMes= "Mes " + i;
+                mes.Maxima = random.Next(20, 60);
+                mes.Minima= random.Next(-7, 17);
+                meses.Add(mes);
+            }
+            foreach (TemperaturaMes mes in meses)
+            {
+                Console.WriteLine(mes.NombreMes +" "+ "Maxima: " + mes.Maxima +" "+ "Minima: " + mes.Minima +" "+ "Media: " + mes.GetMediaMes());
+            }
         }
 
 
